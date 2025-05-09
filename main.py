@@ -1,12 +1,12 @@
 from kivymd.app import MDApp
-from Controllers.NavigationController import NavigationController
+from Controllers.AppController import AppController
 
 class MainApp(MDApp):
     def build(self):
-        self.navigation_controller = NavigationController()
+        self.appController = AppController()
         
-        # Calling the method from NavigationController to set the screen
-        return self.navigation_controller.get_current_screen()
+        # Calling the method from AppController to set the screen
+        return self.appController.View('LoginApp')
     
 if __name__ == "__main__":
     MainApp().run()

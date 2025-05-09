@@ -1,21 +1,18 @@
 from Views.testeKivy import LoginApp
+from NavigationController import NavigationController
 from UserController import UserController
 
 class AppController:
     def __init__(self):
         self.userController = UserController()
-        self.view
+        self.navigationController = NavigationController()
         
-    def loginView(self):
-        self.view = LoginApp()
-        self.view.run()
-        
-        #UserController methods
-        
-        
-    def SignUpView(self):
-        #self.view = SignUpApp()
-        
-        #UserController methods
-        
-        return
+    def View(self):
+        if(self.navigationController.getCurrentView == 'LoginApp'):
+            loginView = LoginApp()
+            loginView.run()
+
+        if(self.navigationController.getCurrentView == 'SignUpApp'):
+            # load the view
+            pass
+
