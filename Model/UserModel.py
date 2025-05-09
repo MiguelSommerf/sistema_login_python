@@ -1,4 +1,4 @@
-from Model.connect import connection
+from config.connect import connection
 
 class UserModel:
     
