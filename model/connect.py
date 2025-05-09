@@ -5,9 +5,9 @@ def connection():
     try:
         return mariadb.connect(
             user = "root",
-            password = "dimebag1966",
+            password = "",
             host = "localhost",
-            port = 8080,
+            port = 3306,
             database = "login"
         )
     except mariadb.Error as error:
