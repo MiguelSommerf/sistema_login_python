@@ -1,4 +1,5 @@
 from config.connect import connection
+import bcrypt
 
 class UserModel:
     
@@ -11,7 +12,10 @@ class UserModel:
     # Inserting data into the database
     def insertDataUser(self, email, password):
         try:
-            self.sql.execute("INSERT INTO usuario (email, senha) VALUES (?, ?)", (email, password))
+            # Hashing the password
+            passhash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+            
+            self.sql.execute("INSERT INTO usuario (email, senha) VALUES (?, ?)", (email, passhash))
             self.conn.commit()
             print("Dados inseridos com sucesso!")
         except Exception as error:
@@ -21,13 +25,14 @@ class UserModel:
     # Logging user into the system
     def logginUser(self, email, password):
         try:
-            self.sql.execute("SELECT * FROM usuario WHERE email = ? AND senha = ?", (email, password))
+            self.sql.execute("SELECT senha FROM usuario WHERE email = ?", (email,))
             result = self.sql.fetchone()
-            if result:
+            
+            if result and bcrypt.checkpw(password.encode('utf-8'), result[0].encode('utf-8')):
                 print("Login bem-sucedido!")
                 return True
             else:
-                print("Email ou senha incorretos.")
+                print("E-mail ou senha incorretos.")
                 return False
         except Exception as error:
             print(f"Erro ao consultar dados: {error}")

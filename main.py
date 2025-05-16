@@ -7,7 +7,6 @@ class MainApp(MDApp):
         self.appController.View('LoginScreen')
         
         # Calling the method from AppController to set the screen
-        self.appController.navigationController.go_to_screen('LoginScreen')
         return self.appController.navigationController.get_screen_manager()
     
 if __name__ == "__main__":
